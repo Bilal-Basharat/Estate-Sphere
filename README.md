@@ -1,4 +1,4 @@
-# EstateSphere
+# Estate-Shpere
 
 **EstateSphere** is a full-featured real estate platform that enables users to **buy**, **sell**, and **manage** real estate listings. Whether you're a homebuyer or a realtor, EstateSphere provides a seamless experience from discovery to deal closure.
 
