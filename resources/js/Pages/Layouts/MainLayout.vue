@@ -10,22 +10,31 @@
                 <div class="text-xl font-bold text-center text-indigo-600">
                     <Link href="/hello"> Estate Sphere </Link>
                 </div>
-                <div class="bg-[#054fbe] text-white rounded-md px-4 py-2 hover:bg-[#055ebe] font-medium">
+                <div
+                    class="bg-[#054fbe] text-white rounded-md px-4 py-2 hover:bg-[#055ebe] font-medium"
+                >
                     <Link href="/listing/create"> New Listing </Link>
                 </div>
             </nav>
         </div>
     </header>
 
-<main class="container p-4 mx-auto">
-        <div v-if="flashSuccess" class="mb-4 border rounded-md border-green-200 bg-green-100 p-4 shadow-lg dark:bg-green-900 dark:border-green-800">
-        {{flashSuccess}} 
-    </div>
+    <main class="container p-4 mx-auto">
+        <div
+            v-if="flashMessage"
+            class="mb-4 border rounded-md border-green-200 bg-green-100 p-4 shadow-lg dark:bg-green-900 dark:border-green-800"
+        >
+            {{ flashMessage }}
+        </div>
 
-    <slot> default </slot>
-
-</main></template>
+        <slot> default </slot>
+    </main>
+</template>
 
 <script setup>
 import { Link, usePage } from "@inertiajs/vue3";
+import { computed } from "vue";
+
+const page = usePage();
+const flashMessage = computed(() => page.props.flash.message);
 </script>

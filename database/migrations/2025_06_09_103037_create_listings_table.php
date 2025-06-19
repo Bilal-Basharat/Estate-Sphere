@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,16 +12,21 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('beds');
-            $table->unsignedTinyInteger('baths');
-            $table->unsignedSmallInteger('area');
+            $table->unsignedTinyInteger('beds')->default(0);
+            $table->unsignedTinyInteger('baths')->default(0);
+            $table->unsignedSmallInteger('area')->default(0);
 
-            $table->tinyText('city');
-            $table->tinyText('code');
-            $table->tinyText('street');
-            $table->tinyText('street_nr');
-            
-            $table->unsignedInteger('price');
+            $table->tinyText('city')->default('');
+            ;
+            $table->tinyText('code')->default('');
+            ;
+            $table->tinyText('street')->default('');
+            ;
+            $table->tinyText('street_nr')->default('');
+            ;
+
+            $table->unsignedInteger('price')->default(0);
+            ;
             $table->timestamps();
         });
     }
@@ -32,8 +36,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropColumns('listings',[
-            'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'
+        Schema::dropColumns('listings', [
+            'beds',
+            'baths',
+            'area',
+            'city',
+            'code',
+            'street',
+            'street_nr',
+            'price'
         ]);
     }
 };

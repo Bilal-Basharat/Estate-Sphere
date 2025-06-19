@@ -5,3 +5,18 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@layer components {
+    .label {
+        @apply block mb-1 font-medium text-gray-500 dark:text-gray-300
+    }
+    .input {
+        @apply block border rounded-md shadow-sm w-full p-2 border-gray-300 text-gray-500 dark:border-gray-600 dark:text-white
+    }
+    .btn-primary {
+        @apply bg-[#054fbe] text-white rounded-md px-4 py-2 hover:bg-[#055ebe] font-medium
+    }
+    .input-error{
+        @apply text-sm text-red-500 text-red-400 
+    }
+}
