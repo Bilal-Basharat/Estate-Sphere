@@ -1,32 +1,15 @@
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        <Box v-for="listing in listings" :key="listing.id">
-            <Link :href="`/listing/${listing.id}`">
-                <Price :price="listing.price" class="text-2xl font-bold" />
-                <ListingSpace :listing="listing" class="text-lg" />
-                <ListingAddress :listing="listing" class="text-g" />
-            </Link>
-            <Link
-                :href="`/listing/${listing.id}/edit`"
-                class="text-indigo-600 hover:text-indigo-800"
-            >
-                Edit
-            </Link>
-            <span> | </span>
-            <Link
-                :href="`/listing/${listing.id}`"
-                method="DELETE"
-                class="text-indigo-600 hover:text-indigo-800"
-            >
-                Delete
-            </Link>
-        </Box>
+    <div class="grid grid-cols-4 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <Listing
+            v-for="listing in listings"
+            :key="listing.id"
+            :listing="listing"
+        />
     </div>
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
-import ListingAddress from "../../components/ListingAddress.vue";
+import Listing from "@/Pages/Listing/Index/components/Listing.vue";
 defineProps({
     listings: Array,
 });
@@ -34,9 +17,6 @@ defineProps({
 
 <script>
 import MainLayout from "../Layouts/MainLayout.vue";
-import Box from "@/components/UI/Box.vue";
-import ListingSpace from "../../components/ListingSpace.vue";
-import Price from "../../components/Price.vue";
 
 export default {
     layout: MainLayout,

@@ -1,7 +1,7 @@
 <template>
     <div> 
-                {{listing.city}} | {{ listing.state }} |
-        {{listing.street}} | 
+                {{listing.city}} {{ listing.state }} |
+        {{listing.street}} 
 
         </div>
 </template>

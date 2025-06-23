@@ -16,6 +16,9 @@
     .btn-primary {
         @apply bg-[#054fbe] text-white rounded-md px-4 py-2 hover:bg-[#055ebe] font-medium
     }
+    .btn-secondary{
+        @apply bg-[#054fbe] text-white text-sm rounded-md px-2 py-2 hover:bg-[#055ebe] font-medium
+    }
     .input-error{
         @apply text-sm text-red-500 text-red-400 
     }
