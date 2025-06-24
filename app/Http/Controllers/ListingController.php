@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 
+
 class ListingController extends Controller
 {
+    public function __construct(){
+            $this->authorizeResource(Listing::class, 'listing');
+    }    
     /**
      * Display a listing of the resource.
      */
@@ -41,7 +45,8 @@ class ListingController extends Controller
             'price' => 'required|integer|min:50000|max:1000000000',
         ]);
 
-        Listing::create($validated);
+        $request->user()->listings()->create($validated);
+        // Listing::create($validated);
 
         return redirect()->route('listing.index')->with([
             'success' => true,
@@ -64,10 +69,8 @@ class ListingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Listing $listing)
     {
-        $listing = Listing::find($id);
-
         return inertia('Listing/Edit', [
             'listing' => $listing
         ]);
@@ -76,13 +79,10 @@ class ListingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Listing $listing)
     {
-        // dump('api called');
-        $listing = Listing::find($id);
+        // $listing = Listing::find($id);
 
-        // dump('listing is: ');
-        // dump($listing);
         $update = $listing->update(
             $request->validate([
                 'beds' => 'required|integer|min:0|max:20',
@@ -95,9 +95,6 @@ class ListingController extends Controller
                 'price' => 'required|integer|min:50000|max:1000000000',
             ])
         );
-
-        // dump('updated successfully');
-        // dump($update);
 
         return redirect()->route('listing.index')->with([
             'success' => true,

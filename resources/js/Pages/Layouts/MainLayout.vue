@@ -1,6 +1,6 @@
 <template>
     <header
-        class="border-b border-gray-900 dark:border-gray-700 bg-white w-full text-black"
+        class="border-b border-gray-900 dark:border-gray-700 bg-white dark:bg-gray-800 w-full text-black"
     >
         <div class="container mx-auto">
             <nav class="flex items-center justify-between p-4">

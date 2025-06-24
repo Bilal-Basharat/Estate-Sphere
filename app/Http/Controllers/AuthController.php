@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException as ValidationValidationException;
+use Illuminate\Validation\ValidationException as ValidationException;
 
 class AuthController extends Controller
 {
@@ -18,7 +18,7 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string'
         ]))){
-            throw ValidationValidationException::withMessages([
+            throw ValidationException::withMessages([
                 'email' => 'Authentication Failed'
             ]);
         }

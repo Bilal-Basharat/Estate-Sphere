@@ -17,16 +17,14 @@ return new class extends Migration {
             $table->unsignedSmallInteger('area')->default(0);
 
             $table->tinyText('city')->default('');
-            ;
             $table->tinyText('code')->default('');
-            ;
             $table->tinyText('street')->default('');
-            ;
             $table->tinyText('street_nr')->default('');
-            ;
 
             $table->unsignedInteger('price')->default(0);
-            ;
+            
+            $table->foreignId('user_id')->constrained('users');
+
             $table->timestamps();
         });
     }
@@ -36,15 +34,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropColumns('listings', [
-            'beds',
-            'baths',
-            'area',
-            'city',
-            'code',
-            'street',
-            'street_nr',
-            'price'
-        ]);
+        Schema::dropIfExists('listings');
     }
 };
