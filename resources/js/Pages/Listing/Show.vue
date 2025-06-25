@@ -77,11 +77,11 @@ import ListingAddress from "../../components/ListingAddress.vue";
 import ListingSpace from "../../components/ListingSpace.vue";
 import Price from "../../components/Price.vue";
 import Box from "@/components/UI/Box.vue";
+import { useMonthlyPayments } from "@/Composable/useMonthlyPayment";
 
 const profitRate = ref(2.5);
 const duration = ref(25);
 
-import { useMonthlyPayments } from "@/Composable/useMonthlyPayment";
 
 const props = defineProps({
     listing: Object,
