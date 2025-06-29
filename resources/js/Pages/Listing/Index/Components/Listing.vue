@@ -12,20 +12,6 @@
                 <ListingSpace :listing="listing" class="text-lg" />
                 <ListingAddress :listing="listing" class="text-g" />
             </Link>
-            <Link
-                :href="`/listing/${listing.id}/edit`"
-                class="text-indigo-600 hover:text-indigo-800"
-            >
-                Edit
-            </Link>
-            <span> | </span>
-            <Link
-                :href="`/listing/${listing.id}`"
-                method="DELETE"
-                class="text-indigo-600 hover:text-indigo-800"
-            >
-                Delete
-            </Link>
         </Box>
 </template>
 

@@ -28,7 +28,10 @@
     .input-right {
         @apply px-2 py-2 w-28 placeholder:text-gray-400 dark:placeholder:text-gray-600 border border-gray-200 dark:border-gray-700 rounded-t-md rounded-l-none rounded-b-md rounded-r-md text-sm font-medium text-gray-600 dark:text-gray-300 dark:bg-gray-800
     }
-        .btn-filter {
+    .btn-filter {
         @apply bg-gray-600 text-white rounded-md w-24 hover:bg-gray-400 font-medium
+    }
+    .btn-outline {
+        @apply bg-white text-gray-800 rounded-md border border-gray-300 shadow-md px-2 py-2 hover:bg-gray-100 dark:bg-gray-400 dark:text-gray-50 font-medium text-xs
     }
 }

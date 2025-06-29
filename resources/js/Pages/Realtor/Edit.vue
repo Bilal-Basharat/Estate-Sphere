@@ -1,5 +1,5 @@
 <template>
-    <form action="" @submit.prevent="create">
+    <form action="" @submit.prevent="update">
         <div class="mx-4 grid grid-cols-6 gap-4">
             <div class="col-span-2">
                 <label class="label"> Beds </label>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="col-span-6">
-                <button class="btn-primary" type="submit">Create</button>
+                <button class="btn-primary hover:cursor-pointer" type="submit">update</button>
             </div>
         </div>
     </form>
@@ -78,28 +78,22 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 
-const form = useForm({
-    beds: 0,
-    baths: 0,
-    area: 0,
-    city: null,
-    code: 0,
-    street: null,
-    street_nr: null,
-    price: 0,
+const props = defineProps({
+    listing: Object,
 });
 
-const create = () => {
-    form.post("/listing");
+const form = useForm({
+    beds: props.listing.beds,
+    baths: props.listing.baths,
+    area: props.listing.area,
+    city: props.listing.city,
+    code: props.listing.code,
+    street: props.listing.street,
+    street_nr: props.listing.street_nr,
+    price: props.listing.price,
+});
+
+const update = () => {
+    form.put(`/realtor/listing/${props.listing.id}`);
 };
 </script>
-
-<style scoped>
-label {
-    margin-right: 2em;
-}
-
-div {
-    padding: 2px;
-}
-</style>

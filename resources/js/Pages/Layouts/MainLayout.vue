@@ -12,11 +12,11 @@
                 </div>
                 <div v-if="loggedUser" class="flex items-center gap-2">
 
-                    <div class="text-md text-gray-500"> {{ loggedUser.name }} </div>
+                    <Link class="text-md text-gray-500" :href="`/realtor/listing`"> {{ loggedUser.name }} </Link>
                     <div
                     class="btn-secondary"
                     >
-                    <Link href="/listing/create"> New Listing </Link>
+                    <Link href="/realtor/listing/create"> + New Listing </Link>
                 </div>
                 <div
                     class="btn-secondary"
