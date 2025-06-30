@@ -1,7 +1,44 @@
 <template>
     <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
         <Box class="md:col-span-7 w-full flex items-center">
-            <div class="text-center w-full font-medium text-gray-500">
+            <div
+                v-if="listing.images.length"
+                class="grid grid-cols-2 gap-1 w-full as"
+            >
+                <div
+                    class="relative aspect-square overflow-hidden group"
+                    v-for="image in listing.images"
+                    :key="image.id"
+                >
+                    <img
+                        :src="image.src"
+                        class="w-full h-full object-cover"
+                        alt="Listing Image"
+                    />
+
+                    <!-- Transparent trash icon (only shows on hover) -->
+                    <button
+                        @click.stop="deleteImage(image.id)"
+                        class="absolute top-2 left-2 p-1.5 bg-black/30 backdrop-blur-sm text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-black/40"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div v-else class="text-center w-full font-medium text-gray-500">
                 No Images
             </div>
         </Box>
@@ -55,13 +92,19 @@
                         <div class="flex justify-between">
                             <div>Pricipal Paid</div>
                             <div>
-                                <Price :price="listing.price" class="font-medium" />
+                                <Price
+                                    :price="listing.price"
+                                    class="font-medium"
+                                />
                             </div>
                         </div>
                         <div class="flex justify-between">
-                            <div> Profit Paid </div>
+                            <div>Profit Paid</div>
                             <div>
-                                <Price :price="totalProfit" class="font-medium" />
+                                <Price
+                                    :price="totalProfit"
+                                    class="font-medium"
+                                />
                             </div>
                         </div>
                     </div>
@@ -82,7 +125,6 @@ import { useMonthlyPayments } from "@/Composable/useMonthlyPayment";
 const profitRate = ref(2.5);
 const duration = ref(25);
 
-
 const props = defineProps({
     listing: Object,
 });
@@ -93,13 +135,20 @@ const { monthlyPayment, totalPaid, totalProfit } = useMonthlyPayments(
     duration
 );
 
+const form = useForm({
+    images: [],
+});
+
+const deleteImage = (imageId) => {
+    form.delete(`/realtor/listing/${props.listing.id}/image/${imageId}`);
+};
 </script>
 
 <script>
 import MainLayout from "../Layouts/MainLayout.vue";
+import { useForm } from "@inertiajs/vue3";
 
 export default {
     layout: MainLayout,
 };
-
 </script>

@@ -4,29 +4,35 @@
     >
         <div class="container mx-auto">
             <nav class="flex items-center justify-between p-4">
-                <div class="text-lg font-medium">
+                <div class="text-lg font-medium text-[#054fbe]">
                     <Link href="/listing"> Listings </Link>
                 </div>
-                <div class="text-xl font-bold text-center text-indigo-600">
+                <div class="text-xl font-bold text-center text-[#054fbe]">
                     <Link href="/hello"> Estate Sphere </Link>
                 </div>
                 <div v-if="loggedUser" class="flex items-center gap-2">
-
-                    <Link class="text-md text-gray-500" :href="`/realtor/listing`"> {{ loggedUser.name }} </Link>
-                    <div
-                    class="btn-secondary"
+                    <Link
+                        class="text-md text-gray-500"
+                        :href="`/realtor/listing`"
                     >
-                    <Link href="/realtor/listing/create"> + New Listing </Link>
+                        {{ loggedUser.name }}
+                    </Link>
+                    <div class="btn-secondary">
+                        <Link href="/realtor/listing/create">
+                            + New Listing
+                        </Link>
+                    </div>
+                    <div class="btn-secondary">
+                        <button @click="logout">Logout</button>
+                    </div>
                 </div>
-                <div
-                    class="btn-secondary"
-                    >
-                    <button  @click="logout"> Logout </button>
-                </div>
-            </div>
                 <div v-else>
-                    <Link href="/login" class="btn-secondary mr-2"> Login </Link>
-                    <Link href="/user-account/create" class="btn-secondary" > Register </Link>
+                    <Link href="/login" class="btn-secondary mr-2">
+                        Login
+                    </Link>
+                    <Link href="/user-account/create" class="btn-secondary">
+                        Register
+                    </Link>
                 </div>
             </nav>
         </div>
@@ -54,10 +60,9 @@ const form = useForm();
 
 const logout = () => {
     form.delete("logout");
-}
+};
 
 const flashMessage = computed(() => page.props.flash.message);
 
 const loggedUser = computed(() => page.props.user);
-
 </script>

@@ -1,7 +1,15 @@
 <template>
     <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
+        
         <Box class="md:col-span-7 w-full flex items-center">
-            <div class="text-center w-full font-medium text-gray-500">
+            <div v-if="listing.images.length" class="grid grid-cols-2 gap-1 w-full as">
+                
+                <div class="relative aspect-square overflow-hidden" v-for="image in listing.images" :key="image.id">
+                    <img 
+                :src="image.src" class="w-full h-full object-cover" alt="Listing Image" />
+                </div> 
+            </div>
+            <div v-else class="text-center w-full font-medium text-gray-500">
                 No Images
             </div>
         </Box>
@@ -55,13 +63,19 @@
                         <div class="flex justify-between">
                             <div>Pricipal Paid</div>
                             <div>
-                                <Price :price="listing.price" class="font-medium" />
+                                <Price
+                                    :price="listing.price"
+                                    class="font-medium"
+                                />
                             </div>
                         </div>
                         <div class="flex justify-between">
-                            <div> Profit Paid </div>
+                            <div>Profit Paid</div>
                             <div>
-                                <Price :price="totalProfit" class="font-medium" />
+                                <Price
+                                    :price="totalProfit"
+                                    class="font-medium"
+                                />
                             </div>
                         </div>
                     </div>
@@ -82,7 +96,6 @@ import { useMonthlyPayments } from "@/Composable/useMonthlyPayment";
 const profitRate = ref(2.5);
 const duration = ref(25);
 
-
 const props = defineProps({
     listing: Object,
 });
@@ -92,7 +105,6 @@ const { monthlyPayment, totalPaid, totalProfit } = useMonthlyPayments(
     profitRate,
     duration
 );
-
 </script>
 
 <script>
@@ -101,5 +113,4 @@ import MainLayout from "../Layouts/MainLayout.vue";
 export default {
     layout: MainLayout,
 };
-
 </script>

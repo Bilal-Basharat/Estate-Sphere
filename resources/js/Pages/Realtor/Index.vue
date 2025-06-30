@@ -20,9 +20,11 @@
                     </div>
                     <ListingAddress :listing="listing" class="text-gray-500" />
                 </div>
-                <div
+                <section>
+
+                    <div
                     class="flex gap-1 items-center text-gray-600 dark:text-gray-300"
-                >
+                    >
                     <Link class="btn-outline" :href="`listing/${listing.id}`">
                         Preview
                     </Link>
@@ -38,18 +40,24 @@
                         class="btn-outline hover:cursor-pointer"
                         :href="`listing/${listing.id}/restore`"
                         method="PUT"
-                    >
+                        >
                         Restore
                     </Link>
                     <Link
-                        v-else="listing.deleted_at"
-                        class="btn-outline hover:cursor-pointer"
-                        :href="`listing/${listing.id}`"
-                        method="DELETE"
+                    v-else="listing.deleted_at"
+                    class="btn-outline hover:cursor-pointer"
+                    :href="`listing/${listing.id}`"
+                    method="DELETE"
                     >
-                        Delete
-                    </Link>
-                </div>
+                    Delete
+                </Link>
+            </div>
+
+            <!-- button for going to images upload page -->
+            <div class=" mt-2">
+                <Link :href="`/realtor/listing/${listing.id}/image/create`" class="btn-outline w-full block"> Images </Link>
+            </div>
+        </section>
             </div>
         </Box>
     </section>

@@ -25,6 +25,8 @@ class RealtorListingController extends Controller
 
     public function show(Listing $listing)
     {
+        $listing->load('images');
+
         return inertia("Realtor/Show", [
             'listing' => $listing
         ]);

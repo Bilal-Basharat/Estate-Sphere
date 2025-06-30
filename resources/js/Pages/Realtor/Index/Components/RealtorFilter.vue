@@ -6,7 +6,7 @@
                 <label for="deleteds" class=""> Deleted </label>
             </div>
 
-            <div>
+            <div class="flex flex-nowrap items-center gap-2">
                 <select class="input-left" v-model="filterForm.by">
                     <option value="created_at"> Added </option>
                     <option value="price"> Price </option>

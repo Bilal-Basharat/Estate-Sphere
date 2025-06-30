@@ -30,7 +30,7 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        // $listing = Listing::find($id);
+        $listing->load('images');
 
         return inertia('Listing/Show', [
             'listing' => $listing
