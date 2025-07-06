@@ -32,7 +32,7 @@
         @apply bg-gray-600 text-white rounded-md w-24 hover:bg-gray-400 font-medium
     }
     .btn-outline {
-        @apply bg-white text-gray-800 rounded-md border border-gray-300 shadow-md px-2 py-2 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-500 dark:text-gray-50 font-medium text-xs text-center
+        @apply bg-white text-gray-800 rounded-md border border-gray-300 shadow-md px-2 py-2 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-50 font-medium text-xs text-center
     }
 .image-upload {
         @apply bg-white text-gray-800 cursor-pointer rounded-md border border-gray-300 shadow-md px-2 py-2 hover:bg-gray-100 dark:bg-gray-400 dark:text-gray-50 font-medium text-xs text-center

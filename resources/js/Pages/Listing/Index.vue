@@ -8,10 +8,12 @@
         />
     </div>
 
-    <div v-if="listings.data.length" class="flex justify-center w-full mb-8 mt-8 ">
+    <div
+        v-if="listings.data.length"
+        class="flex justify-center w-full mb-8 mt-8"
+    >
         <Pagination :links="listings.links" />
     </div>
-
 </template>
 
 <script setup>

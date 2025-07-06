@@ -1,18 +1,17 @@
 <template>
-            <Box>
-            <Link :href="`/listing/${listing.id}`">
+    <Box>
 
-                <div class="flex items-center gap-1">
-
-                    <Price :price="listing.price" class="text-2xl font-bold" />
-                    <div class="text-xs text-gray-500"> 
-                        <Price :price="monthlyPayment"/> pm
-                    </div>
+        <Link :href="`/listing/${listing.id}`">
+            <div class="flex items-center gap-1 mt-2">
+                <Price :price="listing.price" class="text-2xl font-bold" />
+                <div class="text-xs text-gray-500">
+                    <Price :price="monthlyPayment" /> pm
                 </div>
-                <ListingSpace :listing="listing" class="text-lg" />
-                <ListingAddress :listing="listing" class="text-g" />
-            </Link>
-        </Box>
+            </div>
+            <ListingSpace :listing="listing" class="text-lg" />
+            <ListingAddress :listing="listing" class="text-g" />
+        </Link>
+    </Box>
 </template>
 
 <script setup>
@@ -27,5 +26,5 @@ const props = defineProps({
     listing: Object,
 });
 
-const {monthlyPayment} = useMonthlyPayments(props.listing.price, 2.5, 25);
+const { monthlyPayment } = useMonthlyPayments(props.listing.price, 2.5, 25);
 </script>

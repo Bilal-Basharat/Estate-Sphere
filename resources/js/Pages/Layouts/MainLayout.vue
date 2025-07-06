@@ -59,7 +59,7 @@ const page = usePage();
 const form = useForm();
 
 const logout = () => {
-    form.delete("logout");
+    form.post("/logout");
 };
 
 const flashMessage = computed(() => page.props.flash.message);

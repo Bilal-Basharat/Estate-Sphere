@@ -8,18 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class RealtorListingController extends Controller
 {
+    public function __construct(){
+            $this->authorizeResource(Listing::class, 'listing');
+    } 
     public function index(Request $request)
     {
         $filters = [
         'deleted' => $request->boolean('deleted'),
         ...$request->only(['by', 'order'])
         ];
- 
-
 
         return inertia('Realtor/Index', [
             // 'filters' =>  
-            'listings' => Auth::user()->listings()->filter($filters)->paginate(10)->withQueryString(),
+            'listings' => Auth::user()
+            ->listings()
+            ->filter($filters)
+            ->withCount('images')
+            ->withCount('offers')
+            ->paginate(10)
+            ->withQueryString(),
         ]);
     }
 
@@ -28,7 +35,8 @@ class RealtorListingController extends Controller
         $listing->load('images');
 
         return inertia("Realtor/Show", [
-            'listing' => $listing
+            'listing' => $listing,
+            'offer' => $listing->load('offers', 'offers.bidder')
         ]);
     }
 

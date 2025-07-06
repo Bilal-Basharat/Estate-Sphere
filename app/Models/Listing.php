@@ -20,6 +20,7 @@ class Listing extends Model
         'street',
         'street_nr',
         'price',
+        'sold_at'
     ];
 
     protected $sortable = ['price', 'created_at'];
@@ -59,5 +60,15 @@ class Listing extends Model
     public function Images()
     {
         return $this->hasMany(ListingImage::class);
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class, 'listing_id');
+    }
+
+    public function scopeWithoutSold($query)
+    {
+        return $query->whereNull('sold_at');
     }
 }

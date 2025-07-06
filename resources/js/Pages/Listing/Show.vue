@@ -1,13 +1,21 @@
 <template>
     <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
-        
         <Box class="md:col-span-7 w-full flex items-center">
-            <div v-if="listing.images.length" class="grid grid-cols-2 gap-1 w-full as">
-                
-                <div class="relative aspect-square overflow-hidden" v-for="image in listing.images" :key="image.id">
-                    <img 
-                :src="image.src" class="w-full h-full object-cover" alt="Listing Image" />
-                </div> 
+            <div
+                v-if="listing.images.length"
+                class="grid grid-cols-2 gap-1 w-full as"
+            >
+                <div
+                    class="relative aspect-square overflow-hidden"
+                    v-for="image in listing.images"
+                    :key="image.id"
+                >
+                    <img
+                        :src="image.src"
+                        class="w-full h-full object-cover"
+                        alt="Listing Image"
+                    />
+                </div>
             </div>
             <div v-else class="text-center w-full font-medium text-gray-500">
                 No Images
@@ -81,6 +89,22 @@
                     </div>
                 </div>
             </Box>
+
+            <div>
+                <MakeOffer
+                    @offer-updated="offer = $event"
+                    v-if="user && !match && !offerMade"
+                    :listing-id="listing.id"
+                    :price="listing.price"
+                />
+            </div>
+
+            <div>
+                <OfferMade
+                    v-if="user && offerMade"
+                    :offerMade="props.offerMade"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -92,23 +116,36 @@ import ListingSpace from "../../components/ListingSpace.vue";
 import Price from "../../components/Price.vue";
 import Box from "@/components/UI/Box.vue";
 import { useMonthlyPayments } from "@/Composable/useMonthlyPayment";
+import { usePage } from "@inertiajs/vue3";
 
 const profitRate = ref(2.5);
 const duration = ref(25);
 
 const props = defineProps({
     listing: Object,
+    offerMade: Object,
 });
 
+const offer = ref(props.listing.price);
+
 const { monthlyPayment, totalPaid, totalProfit } = useMonthlyPayments(
-    props.listing.price,
+    offer,
     profitRate,
     duration
 );
+
+const page = usePage();
+const user = page.props.user;
+
+const match = computed(() => {
+    return user && user.id === props.listing.user_id;
+});
 </script>
 
 <script>
 import MainLayout from "../Layouts/MainLayout.vue";
+import MakeOffer from "./Show/Components/MakeOffer.vue";
+import OfferMade from "./Show/Components/OfferMade.vue";
 
 export default {
     layout: MainLayout,
