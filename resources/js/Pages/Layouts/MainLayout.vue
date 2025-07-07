@@ -10,13 +10,26 @@
                 <div class="text-xl font-bold text-center text-[#054fbe]">
                     <Link href="/hello"> Estate Sphere </Link>
                 </div>
-                <div v-if="loggedUser" class="flex items-center gap-2">
+                <div v-if="loggedUser" class="flex items-center gap-4">
+                    
+                    <Link 
+                    :href="`/notification`"
+                    class="text-gray-500 text-lg relative pr-1 py-1"> 
+
+                        🔔
+                        <div v-if="notificationCount" class="absolute text-xs text-center top-0 right-0 w-5 h-5 bg-red-700 dark:bg-red-400 border border-white dark:border-gray-800 text-white font-medium rounded-full">
+                            {{ notificationCount }}
+                        </div>
+
+                    </Link>
+
                     <Link
                         class="text-md text-gray-500"
                         :href="`/realtor/listing`"
                     >
                         {{ loggedUser.name }}
                     </Link>
+                    
                     <div class="btn-secondary">
                         <Link href="/realtor/listing/create">
                             + New Listing
@@ -65,4 +78,6 @@ const logout = () => {
 const flashMessage = computed(() => page.props.flash.message);
 
 const loggedUser = computed(() => page.props.user);
+
+const notificationCount = computed(() => Math.min(page.props.user.notificationCount, 9),);
 </script>

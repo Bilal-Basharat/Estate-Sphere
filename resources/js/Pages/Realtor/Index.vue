@@ -5,13 +5,15 @@
         <RealtorFilter />
     </section>
 
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <section v-if="listings.data.length" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Listing
             v-for="listing in listings.data"
             :key="listing.id"
             :listing="listing"
         />
     </section>
+
+    <EmptyState v-else> No Listings </EmptyState>
 
     <div v-if="listings.data.length" class="flex items-center mb-8 mt-8">
         <Pagination :links="listings.links" />
@@ -22,6 +24,8 @@
 import MainLayout from "../Layouts/MainLayout.vue";
 import Pagination from "../../components/UI/Pagination.vue";
 import RealtorFilter from "./Index/Components/RealtorFilter.vue";
+import EmptyState from "../../components/UI/EmptyState.vue";
+
 export default {
     layout: MainLayout,
 };
