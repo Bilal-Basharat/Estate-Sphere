@@ -1,37 +1,27 @@
 <template>
-    <form @submit.prevent="login">
+    <form @submit.prevent="resetPassword">
         <div class="w-1/2 mx-auto">
             <div>
                 <label for="email" class="label">Email</label>
                 <input type="email" class="input" id="email" v-model="form.email" />
                 <div class="input-error">  {{ form.errors.email }} </div>
             </div>
-
             <div class="mt-4">
-            <div class="flex justify-between items-center">
-
                 <label for="password" class="label"> Password </label>
-
-                <Link
-                :href="`/forgot-password`"
-                class="text-blue-500 text-sm"
-                >
-                Forgot Password
-                </Link>
-            </div>
                 <input type="password" class="input" id="password" v-model="form.password" />
                 <div class="input-error"> {{form.errors.password}} </div>
             </div>
             <div class="mt-4">
-                <button class="btn-primary w-full" type="submit"> Login </button>
+                <label for="password_confirmation" class="label"> Confirm Password </label>
+                <input type="password" class="input" id="password_confirmation" v-model="form.password_confirmation" />
+                <div class="input-error"> {{form.errors.password_confirmation}} </div>
+            </div>
+            <div class="mt-4">
+                <button class="btn-primary w-full" type="submit"> Reset Password </button>
             </div>
         </div>
     </form>
 
-     <div class="mt-4 text-center">
-        Don't have an account? 
-        <Link href="/user-account/create" class="text-blue-500"> Click Here </Link>
-    </div>
 </template>
 
 <script>
@@ -45,9 +35,16 @@ export default {
 </script>
 
 <script setup>
-const form = useForm({
-    email: null,
-    password: null
+
+const props = defineProps({
+    token: String
 })
-const login = () => form.post('/login');
+
+const form = useForm({
+    token: props.token,
+    email: null,
+    password: null,
+    password_confirmation: null
+})
+const resetPassword = () => form.post('/reset-password');
 </script>

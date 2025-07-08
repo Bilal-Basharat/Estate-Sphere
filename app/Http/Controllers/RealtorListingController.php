@@ -3,44 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RealtorListingController extends Controller
 {
-    public function __construct(){
-            $this->authorizeResource(Listing::class, 'listing');
-    } 
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
     public function index(Request $request)
     {
         $filters = [
-        'deleted' => $request->boolean('deleted'),
-        ...$request->only(['by', 'order'])
+            'deleted' => $request->boolean('deleted'),
+            ...$request->only(['by', 'order'])
         ];
 
         return inertia('Realtor/Index', [
             // 'filters' =>  
             'listings' => Auth::user()
-            ->listings()
-            ->filter($filters)
-            ->withCount('images')
-            ->withCount('offers')
-            ->paginate(10)
-            ->withQueryString(),
+                ->listings()
+                ->filter($filters)
+                ->withCount('images')
+                ->withCount('offers')
+                ->paginate(10)
+                ->withQueryString(),
         ]);
     }
 
     public function show(Listing $listing)
     {
-        $listing->load('images');
+        try{
+        $this->authorize('viewAsRealtor', $listing);
+
+        $listing->load(['images', 'offers', 'offers.bidder']);
 
         return inertia("Realtor/Show", [
             'listing' => $listing,
             'offer' => $listing->load('offers', 'offers.bidder')
         ]);
+    }catch(Exception $ex){
+        return redirect()->back()->with([
+            'success' => false,
+            'error' => 'only the authorized user can view this listing'
+        ]);
+    }
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -108,7 +119,7 @@ class RealtorListingController extends Controller
             'message' => 'Listing updated successfully'
         ]);
     }
-        /**
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Listing $listing)

@@ -33,6 +33,11 @@ class ListingPolicy
         return $listing->sold_at === null;
     }
 
+    public function viewAsRealtor(User $user, Listing $listing): bool
+    {
+        return $listing->user_id === $user?->id;
+    }
+
     /**
      * Determine whether the user can create models.
      */

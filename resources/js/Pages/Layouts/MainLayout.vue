@@ -59,23 +59,45 @@
             {{ flashMessage }}
         </div>
 
+        <div
+            v-if="flashError"
+            class="mb-4 border rounded-md text-white border-red-600 bg-red-400 p-4 shadow-lg dark:bg-red-700 dark:border-red-900"
+        >
+            {{ flashError }}
+        </div>
+
         <slot> default </slot>
     </main>
 </template>
 
 <script setup>
-import { Link, usePage, useForm } from "@inertiajs/vue3";
-import { computed } from "vue";
+import { Link, usePage, useForm, router } from "@inertiajs/vue3";
+import { computed, ref, watch } from "vue";
 
 const page = usePage();
-
 const form = useForm();
 
 const logout = () => {
     form.post("/logout");
 };
 
-const flashMessage = computed(() => page.props.flash.message);
+const flashMessage = ref(page.props.flash.message);
+const flashError = ref(page.props.flash.error);
+
+//autohide message after 2 seconds
+watch(() => page.props.flash, (newFlash) => {
+  flashMessage.value = newFlash.message;
+  flashError.value = newFlash.error;
+  
+  if (newFlash.message || newFlash.error) {
+    setTimeout(() => {
+      flashMessage.value = null;
+      flashError.value = null;
+      // Optional: Clear server-side flash too
+      router.reload({ only: ['flash'] });
+    }, 2000);
+  }
+}, { immediate: true });
 
 const loggedUser = computed(() => page.props.user);
 
